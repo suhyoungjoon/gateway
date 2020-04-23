@@ -42,7 +42,7 @@ spring:
         - id: purchasesystem
           uri: http://purchasesystem:8080
           predicates:
-            - Path=/purchasingSystems/** 
+            - Path=/purchasingSystems/**,/api/purchasing/**
         - id: movie
           uri: http://movie:8080
           predicates:
