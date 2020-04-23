@@ -1,0 +1,66 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: purchasesystem
+          uri: http://localhost:8081
+          predicates:
+            - Path=/purchasingSystems/** 
+        - id: movie
+          uri: http://localhost:8082
+          predicates:
+            - Path=/movies/** 
+        - id: payment
+          uri: http://localhost:8083
+          predicates:
+            - Path=/paymentSystems/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: purchasesystem
+          uri: http://purchasesystem:8080
+          predicates:
+            - Path=/purchasingSystems/** 
+        - id: movie
+          uri: http://movie:8080
+          predicates:
+            - Path=/movies/** 
+        - id: payment
+          uri: http://payment:8080
+          predicates:
+            - Path=/paymentSystems/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
